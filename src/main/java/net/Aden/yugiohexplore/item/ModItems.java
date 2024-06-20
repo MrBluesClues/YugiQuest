@@ -1,7 +1,9 @@
 package net.Aden.yugiohexplore.item;
 
+import io.netty.handler.ipfilter.IpSubnetFilter;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -13,32 +15,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static net.minecraft.commands.arguments.ResourceLocationArgument.id;
+
 public class ModItems {
-
-
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, YugiohExplore.MOD_ID);
     public static final List<Map<String, Object>> CARD_DATA = CardDataLoader.loadCardData();
 
-    static {
-        registerItems();
-    }
-
-    private static void registerItems() {
+    private static void register(IEventBus eventBus) {
         if (CARD_DATA != null) {
             for (Map<String, Object> card : CARD_DATA) {
-                int id = (int) card.get("id");
+                int id;
+                id = (int) card.get("id");
                 String name = (String) card.get("name");
                 String imagePath = (String) card.get("image");
 
-                ITEMS.register("card_" + id, () -> new CardItem(name, imagePath, new Item.Properties().tab(CreativeModeTabs.TAB_MISC)));
+                final RegistryObject<Item> CARDS = ITEMS.register("card_" + id, () ->
+                new Item(new Item.Properties()));
             }
         }
-    }
-
-    public static Item getCardItem(int id, Rarity rarity) {
-        Optional<RegistryObject<Item>> cardItem = ITEMS.getEntries().stream()
-                .filter(item -> item.getId().getPath().equals("card_" + id))
-                .findFirst();
-        return cardItem.orElseThrow(() -> new IllegalArgumentException("Card item not found for id: " + id)).get();
     }
 }
