@@ -8,8 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public class CardDataLoader {
-    private static final String JSON_FILE_PATH = "D:\\stuff\\New folder\\Forge-Yugi-1.20.X\\src\\main\\resources\\cardDatabase.json"; // Update with your JSON file path
+    private static final String JSON_FILE_PATH = "D:\\stuff\\New folder\\Forge-Yugi-1.20.X\\src\\main\\resources\\cardDatabase.json"; // Path to JSON Card database
 
+    //This does some random thing to load the card data???
     public static List<Map<String, Object>> loadCardData() {
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(JSON_FILE_PATH)) {

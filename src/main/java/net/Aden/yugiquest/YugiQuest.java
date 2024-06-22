@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 
 import java.util.function.Supplier;
 
+// This is the Main Class for running the mod
 
 @Mod(YugiQuest.MOD_ID)
 public class YugiQuest {
