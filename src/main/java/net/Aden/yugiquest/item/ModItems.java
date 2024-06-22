@@ -11,7 +11,7 @@ import net.Aden.yugiquest.util.CardDataLoader;
 import java.util.List;
 import java.util.Map;
 
-//This tries to load every card into the game by calling all the card data.
+//This tries to load every card into the game by calling all the card data
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, YugiQuest.MOD_ID);
