@@ -1,66 +1,56 @@
 package net.Aden.yugiquest;
 
-import com.mojang.logging.LogUtils;
 import net.Aden.yugiquest.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
-
-import java.util.function.Supplier;
-
-// This is the Main Class for running the mod?
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(YugiQuest.MOD_ID)
 public class YugiQuest {
     public static final String MOD_ID = "yugiquest";
-    public static final Logger LOGGER = LogUtils.getLogger();
-
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public YugiQuest() {
-
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        modEventBus.register(modEventBus);
-
+        // Register mod-specific event listeners
+        modEventBus.addListener(this::setup);
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::doClientStuff);
 
-        MinecraftForge.EVENT_BUS.register(this);
-        modEventBus.addListener(this::addCreative);
-
+        // Register the mod's item registry
         ModItems.ITEMS.register(modEventBus);
 
-
+        // Register this class to receive Forge events
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS){
-            event.accept((Supplier<? extends ItemLike>) ModItems.ITEMS);
+    @SubscribeEvent
+    static void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            ModItems.ITEMS.getEntries().forEach(entry -> {
+                event.accept(entry.get());
+            });
         }
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        // Some preinit code
-    }
-
-    private void doClientStuff(final FMLClientSetupEvent event) {
-        // Do something that can only be done on the client
+        // Perform setup tasks
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        // Some common setup code
+        // Perform common setup tasks
     }
 
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
+    private void doClientStuff(final FMLClientSetupEvent event) {
+        // Perform client-specific setup tasks
     }
 }
