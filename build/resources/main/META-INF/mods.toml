@@ -1,25 +1,25 @@
-modLoader="javafml"
-loaderVersion="[47,)"
-license="MIT"
+modLoader = "javafml"
+loaderVersion = "[47,)"
+license = "MIT"
 
 [[mods]]
-modId="yugiquest"
-version="0.1-1.20.1"
-displayName="Yugi Quest"
-authors="mod_authors"
-description='''Collect Cards'''
+modId = "yugiquest"
+version = "0.1-1.20.1"
+displayName = "Yugi Quest"
+authors = "mod_authors"
+description = '''Collect Cards'''
 
 [[dependencies.yugiquest]]
-modId="forge"
-mandatory=true
-versionRange="[47,)"
-ordering="NONE"
-side="BOTH"
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.yugiquest]]
-modId="minecraft"
-mandatory=true
-versionRange="[1.20.1,1.21)"
-ordering="NONE"
-side="BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,1.21)"
+ordering = "NONE"
+side = "BOTH"
 

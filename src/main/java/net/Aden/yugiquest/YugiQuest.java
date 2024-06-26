@@ -4,6 +4,7 @@ import net.Aden.yugiquest.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -27,19 +28,10 @@ public class YugiQuest {
         modEventBus.addListener(this::doClientStuff);
 
         // Register the mod's item registry
-        ModItems.ITEMS.register(modEventBus);
+        ModItems.register(modEventBus);
 
         // Register this class to receive Forge events
         MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    @SubscribeEvent
-    static void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            ModItems.ITEMS.getEntries().forEach(entry -> {
-                event.accept(entry.get());
-            });
-        }
     }
 
     private void setup(final FMLCommonSetupEvent event) {
@@ -52,5 +44,19 @@ public class YugiQuest {
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // Perform client-specific setup tasks
+    }
+
+    @SubscribeEvent
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            ModItems.ITEMS.getEntries().forEach(entry -> {
+                event.accept(entry.get());
+            });
+        }
+    }
+
+    @SubscribeEvent
+    public void onServerStarting(ServerStartingEvent event) {
+        // Handle server starting event
     }
 }
