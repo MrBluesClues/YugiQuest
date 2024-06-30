@@ -21,7 +21,7 @@ public class YugiQuest {
 
     public YugiQuest() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+        ModCreativeModTabs.register(modEventBus);
         // Register mod-specific event listeners
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::commonSetup);
@@ -47,16 +47,11 @@ public class YugiQuest {
     }
 
     @SubscribeEvent
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+    public void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            ModItems.ITEMS.getEntries().forEach(entry -> {
-                event.accept(entry.get());
+            ModItems.getRegisteredCards().forEach(card -> {
+                event.accept(card.get());
             });
         }
-    }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        // Handle server starting event
     }
 }
