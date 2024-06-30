@@ -23,6 +23,7 @@ public class ModCreativeModTabs {
                     .title(Component.translatable("creativetab.yugiquest_tab"))
                     .displayItems((pParameters, pOutput) -> {
                         ModItems.ITEMS.getEntries().forEach(entry -> pOutput.accept(entry.get()));
+                        pOutput.accept(ModItems.COMMON_PACK.get());
                     })
                     .build());
 
