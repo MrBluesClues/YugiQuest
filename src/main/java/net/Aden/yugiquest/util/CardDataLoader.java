@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CardDataLoader {
-    private static final String JSON_FILE_PATH = "path/to/cardDatabase.json"; // Adjust path as per your project setup
+    private static final String JSON_FILE_PATH = "D:\\stuff\\New folder\\Forge-Yugi-1.20.X\\cardDatabase.json"; // Adjust path as per your project setup
 
     public static List<Map<String, Object>> loadCardData() {
         Gson gson = new Gson();
