@@ -2,7 +2,6 @@ package net.Aden.yugiquest.item;
 
 import net.Aden.yugiquest.YugiQuest;
 import net.Aden.yugiquest.util.CardDataLoader;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -32,7 +31,7 @@ public class ModItems {
                 LOGGER.info("Registering card: ID = " + id + ", Name = " + name + ", Image Path = " + imagePath);
 
                 final RegistryObject<Item> cardItem = ITEMS.register(String.valueOf(id), () ->
-                        new Item(new Item.Properties()));
+                        new CardItem(new Item.Properties()));
                 REGISTERED_CARDS.add(cardItem);
             }
         } else {
@@ -40,7 +39,6 @@ public class ModItems {
         }
     }
 
-    // Example method to get a registered card by ID
     public static RegistryObject<Item> getRegisteredCard(int id) {
         return REGISTERED_CARDS.stream()
                 .filter(item -> item.getId().getPath().equals(String.valueOf(id)))
@@ -48,7 +46,6 @@ public class ModItems {
                 .orElse(null);
     }
 
-    // Register the common pack item (example)
     public static final RegistryObject<Item> COMMON_PACK = ITEMS.register("common_pack", () ->
             new PackItem(PackItem.PackType.COMMONPACK, new Item.Properties()));
 
