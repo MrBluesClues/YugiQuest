@@ -46,7 +46,10 @@ public class PackItem extends Item {
                 if (selectedEntry != null) {
                     RegistryObject<Item> item = ModItems.getRegisteredCard(selectedEntry.getId());
                     if (item != null) {
-                        cardStacks.add(new ItemStack(item.get()));
+                        CardRarity rarity = determineRarity(random);
+                        ItemStack cardStack = new ItemStack(item.get());
+                        cardStack.getOrCreateTag().putString("CardRarity", rarity.name());
+                        cardStacks.add(cardStack);
                     }
                 }
             }
@@ -93,12 +96,13 @@ public class PackItem extends Item {
         return entries;
     }
 
+    private CardRarity determineRarity(Random random) {
+        double rarityChance = random.nextDouble();
+        return rarityChance < 0.75 ? CardRarity.COMMON : CardRarity.RARE;
+    }
+
     public enum PackType {
         COMMONPACK("common_pack.json");
-        // Add more pack types here if needed
-        // RARE("rare_pack.json"),
-        // EPIC("epic_pack.json"),
-        // LEGENDARY("legendary_pack.json");
 
         private final String fileName;
 
