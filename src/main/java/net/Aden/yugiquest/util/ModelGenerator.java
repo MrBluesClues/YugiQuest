@@ -36,7 +36,8 @@ public class ModelGenerator {
         return "{\n" +
                 "  \"parent\": \"item/generated\",\n" +
                 "  \"textures\": {\n" +
-                "    \"layer0\": \"yugiquest:item/" + id + "\"\n" +
+                "    \"layer0\": \"yugiquest:item/" + id + "\",\n" +
+                "    \"layer1\": \"yugiquest:item/super_rare\"\n" +
                 "  },\n" +
                 "  \"display\": {\n" +
                 "    \"thirdperson_righthand\": {\n" +
